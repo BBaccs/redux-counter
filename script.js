@@ -3,31 +3,31 @@ const initialState = {
   id: 0
 };
 
-   // Reducer
-   function rootReducer(state = initialState, action) {
-    switch (action.type) {
-      case "ADD_TODO":
-        debugger
-        const newState = { ...state };
-        newState.id++;
-        console.log('newstate', newState, 'action', action)
-        return {
-          ...newState,
-          todos: [...newState.todos, { task: action.task, id: newState.id }]
-        };
-      case "REMOVE_TODO":
-        debugger
-        console.log('remopve', action)
-        return {
-          ...state,
-          todos: state.todos.filter(todo => todo.id !== action.id)
-        };
-      default:
-        return state;
-    }
+// Reducer
+function rootReducer(state = initialState, action) {
+  switch (action.type) {
+    case "ADD_TODO":
+      debugger
+      const newState = { ...state };
+      newState.id++;
+      console.log('newstate', newState, 'action', action)
+      return {
+        ...newState,
+        todos: [...newState.todos, { task: action.task, id: newState.id }]
+      };
+    case "REMOVE_TODO":
+      debugger
+      console.log('remopve', action)
+      return {
+        ...state,
+        todos: state.todos.filter(todo => todo.id !== action.id)
+      };
+    default:
+      return state;
   }
+}
 
-const store = Redux.createStore(rootReducer);
+const store = Redux.createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const updateUI = () => {
   const currentState = store.getState();
@@ -39,8 +39,8 @@ const updateUI = () => {
     const newTodoItem = $("<li>")
       .addClass("todo-item")
       .text(todo.task);
-    
-    const removeButton = $("<button>").text("Remove Todo").on("click", function() {
+
+    const removeButton = $("<button>").text("Remove Todo").on("click", function () {
       store.dispatch({
         type: "REMOVE_TODO",
         id: todo.id
