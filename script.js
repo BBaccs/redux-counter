@@ -23,14 +23,19 @@ const store = Redux.createStore(rootReducer);
 $(document).ready(function () {
   $("form").on("submit", function (event) {
     event.preventDefault();
-    let newTask = $("#task").val();
+    const newTask = $("#task").val();
     store.dispatch({
       type: "ADD_TODO",
       task: newTask
     });
-    console.log('hi', newTask)
+    // console.log('hi', newTask);
+    const currentState = store.getState();
+    const $newLi = $("<li>", {
+      text: newTask
+    });
+    $("#todos").append($newLi);
     $("form").trigger("reset");
-  })
+  });
 });
 
 
