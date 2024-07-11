@@ -40,7 +40,7 @@ const updateUI = () => {
       .addClass("todo-item")
       .text(todo.task);
     
-    const removeButton = $("<button>").text("Remove Todo").attr( 'id', todo.id ).on("click", function() {
+    const removeButton = $("<button>").text("Remove Todo").on("click", function() {
       store.dispatch({
         type: "REMOVE_TODO",
         id: todo.id
