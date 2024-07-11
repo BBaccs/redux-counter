@@ -10,12 +10,14 @@ const initialState = {
         debugger
         const newState = { ...state };
         newState.id++;
+        console.log('newstate', newState, 'action', action)
         return {
           ...newState,
           todos: [...newState.todos, { task: action.task, id: newState.id }]
         };
       case "REMOVE_TODO":
         debugger
+        console.log('remopve', action)
         return {
           ...state,
           todos: state.todos.filter(todo => todo.id !== action.id)
@@ -33,12 +35,12 @@ const updateUI = () => {
   todoList.empty();
 
   currentState.todos.forEach(todo => {
-    console.log('task', todo.task);
+    // console.log('task', todo.task);
     const newTodoItem = $("<li>")
       .addClass("todo-item")
       .text(todo.task);
     
-    const removeButton = $("<button>").text("Remove Todo").on("click", function() {
+    const removeButton = $("<button>").text("Remove Todo").attr( 'id', todo.id ).on("click", function() {
       store.dispatch({
         type: "REMOVE_TODO",
         id: todo.id
